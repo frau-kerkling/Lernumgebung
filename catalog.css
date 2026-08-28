@@ -239,6 +239,8 @@
   transform: translateY(-3px);
 }
 
+.grade-card.spanish-grade:hover { border-color: var(--petrol-700); }
+
 .grade-number {
   flex: none;
   width: 66px;
@@ -250,6 +252,11 @@
   color: var(--orange-700);
   font-size: 34px;
   font-weight: 780;
+}
+
+.spanish-grade .grade-number {
+  background: var(--petrol-100);
+  color: var(--petrol-700);
 }
 
 .grade-card strong,
@@ -330,6 +337,12 @@
   font-weight: 780;
   line-height: 1;
   letter-spacing: 0.08em;
+}
+
+.material-art.spanish-art {
+  background: var(--petrol-700);
+  color: var(--white);
+  text-transform: none;
 }
 
 .material-copy { padding: 28px; }

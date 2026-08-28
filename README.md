@@ -1,10 +1,13 @@
-# Kirstens Lernwerkstatt
+# Frau Kaars Lernwerkstatt
 
 Das Erscheinungsbild nutzt eine einheitliche Systemschrift und eine begrenzte
 Farbpalette aus Petrol, warmem Orange, gedecktem Braun und Creme. Die vier
 Fachbereiche unterscheiden sich nur durch passende Nuancen dieser Palette.
 
-Interaktive Präteritum-Übung für Deutsch, Klasse 6.
+Enthaltene Übungen:
+
+- Deutsch, Klasse 6: Verben im Präteritum
+- Spanisch, Klasse 7: Vokabelquiz „Primeros pasos“ mit 34 Zuordnungen
 
 ## Auf GitHub Pages veröffentlichen
 
