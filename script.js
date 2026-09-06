@@ -53,7 +53,28 @@ const subjects = {
   sonstiges: ["Sonstiges", "Weitere Materialien für den Unterricht", "✦", "brown"]
 };
 
-let view = "home";
+const viewRoutes = {
+  home: "",
+  deutsch: "deutsch",
+  klasse6: "deutsch/klasse-6",
+  praeteritum: "deutsch/klasse-6/praeteritum",
+  spanisch: "spanisch",
+  spanisch7: "spanisch/klasse-7",
+  vokabeln: "spanisch/klasse-7/vokabelquiz",
+  medien: "medienunterricht",
+  sonstiges: "sonstiges"
+};
+
+const routeViews = Object.fromEntries(
+  Object.entries(viewRoutes).map(([viewName, route]) => [route, viewName])
+);
+
+function viewFromAddress() {
+  const route = decodeURIComponent(window.location.hash.replace(/^#\/?/, ""));
+  return routeViews[route] || "home";
+}
+
+let view = viewFromAddress();
 let index = 0;
 let score = 0;
 let choice = "";
@@ -81,16 +102,25 @@ function shuffle(items) {
   return shuffled;
 }
 
-function go(next) {
+function go(next, updateAddress = true) {
   view = next;
   if (next === "praeteritum") {
     started = false;
     resetPraeteritum();
   }
   if (next === "vokabeln") resetVocabulary();
+  if (updateAddress) {
+    const route = viewRoutes[next] || "";
+    const address = route
+      ? `${window.location.pathname}${window.location.search}#${route}`
+      : `${window.location.pathname}${window.location.search}`;
+    window.history.pushState({ view: next }, "", address);
+  }
   render();
   scrollTo({ top: 0, behavior: "smooth" });
 }
+
+window.addEventListener("popstate", () => go(viewFromAddress(), false));
 
 function resetPraeteritum() {
   index = 0;

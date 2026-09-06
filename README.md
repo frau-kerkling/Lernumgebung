@@ -1,4 +1,4 @@
-# Frau Ks Lernwerkstatt
+# Frau Kaars Lernwerkstatt
 
 Das Erscheinungsbild nutzt eine einheitliche Systemschrift und eine begrenzte
 Farbpalette aus Petrol, warmem Orange, gedecktem Braun und Creme. Die vier
@@ -17,5 +17,20 @@ Enthaltene Übungen:
 4. Unter `Build and deployment` die Option `Deploy from a branch` auswählen.
 5. Branch `main` und Ordner `/ (root)` auswählen und speichern.
 6. Nach einigen Minuten zeigt GitHub dort den öffentlichen Link an.
+
+## Direktlinks für Schülerinnen und Schüler
+
+Beim Öffnen eines Fachbereichs, einer Jahrgangsstufe oder einer Übung wird die
+Browseradresse automatisch ergänzt. Dadurch kann jede Ansicht einzeln verlinkt
+werden. Gewünschte Ansicht öffnen, die Adresse in der Browserzeile kopieren und
+den Link in einem privaten Browserfenster testen.
+
+Beispiele für das Repository `Interaktive-Lernumgebungen`:
+
+- Deutsch, Klasse 6, Präteritum: `#deutsch/klasse-6/praeteritum`
+- Spanisch, Klasse 7, Vokabelquiz: `#spanisch/klasse-7/vokabelquiz`
+
+Der Teil hinter dem Doppelkreuz gehört zum Link und muss vollständig mitkopiert
+werden.
 
 Bitte keine Namen, Noten oder andere personenbezogene Schülerdaten eintragen.
