@@ -1,4 +1,4 @@
-# Frau Kaars Lernwerkstatt
+# Frau Ks Lernwerkstatt
 
 Das Erscheinungsbild nutzt eine einheitliche Systemschrift und eine begrenzte
 Farbpalette aus Petrol, warmem Orange, gedecktem Braun und Creme. Die vier
