@@ -132,7 +132,7 @@ button, select, input, textarea { font: inherit; }
   color: var(--ink);
 }
 .question input.long-input { width: min(100%, 590px); }
-.question select:focus, .question input:focus, textarea:focus { outline: 3px solid rgba(239,143,50,.25); border-color: var(--orange); }
+.question select:focus, .question input:focus { outline: 3px solid rgba(239,143,50,.25); border-color: var(--orange); }
 .question.correct { border-color: #69b58d; background: #f0faf5; }
 .question.incorrect { border-color: #e19a94; background: #fff5f4; }
 .feedback { margin: 9px 0 0; font-weight: 700; min-height: 1.25em; }
@@ -159,13 +159,14 @@ button, select, input, textarea { font: inherit; }
 .result.good { background: #e9f8ef; color: var(--good); }
 .result.keep-going { background: #fff0e5; color: #82400a; }
 
-.writing-plan { display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; margin-bottom: 18px; }
-.plan-field { padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: #f7fbfa; }
-.plan-field label { display: block; margin-bottom: 8px; font-weight: 700; }
-.plan-field input { width: 100%; padding: 10px; border: 2px solid #aacbc8; border-radius: 8px; }
-textarea { width: 100%; min-height: 250px; padding: 15px; border: 2px solid #aacbc8; border-radius: 12px; line-height: 1.55; resize: vertical; }
-.checklist { display: grid; gap: 10px; margin-top: 18px; padding: 18px; background: #fff4e8; border-radius: 12px; }
-.checklist label { display: flex; gap: 10px; align-items: flex-start; }
+.case-help { margin: 0 0 24px; padding: 18px; background: #eef6f5; border: 1px solid #b9d5d2; border-radius: 13px; }
+.case-help h2 { margin: 0 0 13px; font-size: 1.15rem; color: var(--petrol-dark); }
+.table-scroll { overflow-x: auto; }
+.case-help table { width: 100%; border-collapse: collapse; background: white; }
+.case-help th, .case-help td { padding: 11px 13px; text-align: left; border: 1px solid #c7dcda; }
+.case-help th { color: white; background: var(--petrol); }
+.case-help tbody tr:nth-child(even) { background: #f4f9f8; }
+.case-help td:first-child { font-weight: 700; }
 
 .error-box { padding: 18px; border-radius: 12px; background: #fff8ef; border: 1px solid #f3cfa8; line-height: 2.5; }
 .error-box select { padding: 8px; margin: 3px; border: 2px solid #aacbc8; border-radius: 8px; }
@@ -178,7 +179,6 @@ footer { text-align: center; padding: 26px; color: var(--muted); }
   .exercise-head { padding: 24px 21px; }
   .exercise-head__icon { font-size: 3.2rem; }
   .exercise-body { padding: 22px 18px 28px; }
-  .writing-plan { grid-template-columns: 1fr; }
   .topbar__label { display: none; }
   .btn-link { margin-left: 0; }
 }

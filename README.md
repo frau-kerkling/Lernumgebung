@@ -1,11 +1,10 @@
 # Interaktive Einzelübungen: Tierbeschreibung Klasse 5
 
-Das Paket enthält 14 getrennt aufrufbare Übungen passend zum Selbstlernheft:
+Das Paket enthält 13 getrennt aufrufbare Übungen passend zum Selbstlernheft:
 
 - Übungen 1–13: automatisch auswertbare Grammatikübungen
-- Übung 14: eigene Tierbeschreibung mit Schreibplan und Checkliste
 - `index.html`: Übersicht über alle Übungen
-- `uebung.html?id=1` bis `uebung.html?id=14`: Direktlinks zu den Einzelübungen
+- `uebung.html?id=1` bis `uebung.html?id=13`: Direktlinks zu den Einzelübungen
 
 ## In GitHub einfügen
 
@@ -16,4 +15,4 @@ Das Paket enthält 14 getrennt aufrufbare Übungen passend zum Selbstlernheft:
 4. Für eine einzelne Übung den Parameter verwenden, zum Beispiel:
    `https://DEIN-NAME.github.io/DEIN-REPOSITORY/tierbeschreibung-klasse-5/uebung.html?id=4`
 
-Alle Seiten funktionieren ohne zusätzliche Bibliotheken oder Internetverbindung. Die Auswahlmöglichkeiten werden bei jedem Laden neu gemischt. Die Schreibübung speichert den Entwurf im Browser des verwendeten Geräts.
+Alle Seiten funktionieren ohne zusätzliche Bibliotheken oder Internetverbindung. Die Auswahlmöglichkeiten werden bei jedem Laden neu gemischt.
