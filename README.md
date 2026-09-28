@@ -1,4 +1,4 @@
-# Frau Kaars Lernwerkstatt – wiederhergestellte Gesamtversion
+# Frau Ks Lernwerkstatt – wiederhergestellte Gesamtversion
 
 Diese Version enthält:
 
