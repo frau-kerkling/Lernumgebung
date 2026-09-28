@@ -56,6 +56,7 @@ const subjects = {
 const viewRoutes = {
   home: "",
   deutsch: "deutsch",
+  deutsch5: "deutsch/klasse-5",
   klasse6: "deutsch/klasse-6",
   praeteritum: "deutsch/klasse-6/praeteritum",
   spanisch: "spanisch",
@@ -162,6 +163,7 @@ function bindNav() {
 function render() {
   if (view === "home") renderHome();
   else if (subjects[view]) renderSubject(view);
+  else if (view === "deutsch5") renderGermanGrade5();
   else if (view === "klasse6") renderGermanGrade();
   else if (view === "spanisch7") renderSpanishGrade();
   else if (view === "praeteritum") renderPraeteritumLesson();
@@ -177,9 +179,13 @@ function renderHome() {
 function renderSubject(key) {
   const [label, intro, icon, tone] = subjects[key];
   let grades = `<div class="empty-state"><strong>▱</strong><div><h3>Hier entsteht etwas Neues</h3><p>Sobald die erste Übung für diesen Bereich fertig ist, erscheint hier die passende Jahrgangsstufe.</p></div></div>`;
-  if (key === "deutsch") grades = `<div class="grade-grid"><button class="grade-card" data-go="klasse6"><span class="grade-number">6</span><span><strong>Klasse 6</strong><small>Grammatik und Fabeln</small><i>Materialien ansehen →</i></span></button></div>`;
+  if (key === "deutsch") grades = `<div class="grade-grid"><button class="grade-card" data-go="deutsch5"><span class="grade-number">5</span><span><strong>Klasse 5</strong><small>Grammatik und Tierbeschreibungen</small><i>Materialien ansehen →</i></span></button><button class="grade-card" data-go="klasse6"><span class="grade-number">6</span><span><strong>Klasse 6</strong><small>Grammatik und Fabeln</small><i>Materialien ansehen →</i></span></button></div>`;
   if (key === "spanisch") grades = `<div class="grade-grid"><button class="grade-card spanish-grade" data-go="spanisch7"><span class="grade-number">7</span><span><strong>Klasse 7</strong><small>Vorkurs und erste Kommunikation</small><i>Materialien ansehen →</i></span></button></div>`;
   app.innerHTML = `<div class="catalog-page inner-page">${crumbs([[label]])}<section class="inner-hero ${tone}"><span class="inner-icon">${icon}</span><div><p class="eyebrow">Fachbereich</p><h1>${label}</h1><p>${intro}</p></div></section><section class="catalog-section"><div class="section-heading"><span>02</span><h2>Jahrgangsstufen</h2></div>${grades}</section></div>`;
+}
+
+function renderGermanGrade5() {
+  app.innerHTML = `<div class="catalog-page inner-page">${crumbs([["Deutsch", "deutsch"], ["Klasse 5"]])}<section class="inner-hero terracotta"><span class="inner-icon">5</span><div><p class="eyebrow">Deutsch · Jahrgangsstufe</p><h1>Klasse 5</h1><p>Interaktive Übungen und Lernangebote für den Deutschunterricht.</p></div></section><section class="catalog-section"><div class="section-heading"><span>03</span><h2>Lernmaterialien</h2></div><a class="material-card" href="tierbeschreibung-klasse-5/"><span class="material-art">Tier<br>bes</span><span class="material-copy"><small>DaZ · Grammatik</small><strong>Tierbeschreibung</strong><p>Artikel, Fälle, Adjektivendungen und Pronomen in 13 Einzelübungen trainieren.</p><i>Übungen öffnen →</i></span></a></section></div>`;
 }
 
 function renderGermanGrade() {
