@@ -119,11 +119,6 @@ const exercises = [
     id: 13, group: 3, icon: "🦒", color: "#c8872f", title: "Fehlertext: Die Giraffe",
     short: "12 Grammatikfehler verbessern", instruction: "In diesem Text stecken 12 Grammatikfehler. Wähle an jeder markierten Stelle die richtige Form.",
     type: "error-text"
-  },
-  {
-    id: 14, group: 3, icon: "✍️", color: "#0f7777", title: "Eigene Tierbeschreibung",
-    short: "einen sachlichen Text planen und schreiben", instruction: "Wähle ein Tier. Sammle Stichwörter und schreibe vom Allgemeinen zum Besonderen. Prüfe deinen Text anschließend mit der Checkliste.",
-    type: "writing"
   }
 ];
 
@@ -184,26 +179,39 @@ function renderExercise() {
     body = ex.items.map((item, i) => `<div class="question" data-question="${i}"><p><span class="question-number">${i + 1}</span><strong>${esc(item.q)}</strong></p><div class="inline-gap"><label for="answer-${i}-a">Fallfrage:</label><select id="answer-${i}-a" data-answer="${esc(item.a)}">${optionsHtml(item.aopts)}</select></div><br><div class="inline-gap"><label for="answer-${i}-b">Antwort:</label><select id="answer-${i}-b" data-answer="${esc(item.b)}">${optionsHtml(item.bopts)}</select></div><p class="feedback" aria-live="polite"></p></div>`).join("");
   } else if (ex.type === "error-text") {
     body = renderErrorText();
-  } else if (ex.type === "writing") {
-    body = renderWriting();
   }
+
+  const caseHelp = ex.id === 4 ? renderCaseHelp() : "";
 
   root.innerHTML = `
     <section class="exercise-head" style="--accent:${ex.color}">
-      <div><span class="exercise-number">Einzelübung ${ex.id} von 14</span><h1>${esc(ex.title)}</h1><p>${esc(ex.short)}</p></div>
+      <div><span class="exercise-number">Einzelübung ${ex.id} von 13</span><h1>${esc(ex.title)}</h1><p>${esc(ex.short)}</p></div>
       <div class="exercise-head__icon" aria-hidden="true">${ex.icon}</div>
     </section>
     <section class="exercise-body">
       <p class="instruction"><strong>Arbeitsauftrag:</strong> ${esc(ex.instruction)}</p>
+      ${caseHelp}
       <div class="question-list">${body}</div>
-      ${ex.type === "writing" ? "" : `<div class="actions"><button class="btn btn-primary" id="check">Antworten prüfen</button><button class="btn btn-secondary" id="reset">Noch einmal</button><a class="btn btn-link" href="uebung.html?id=${ex.id === 14 ? 1 : ex.id + 1}">Nächste Übung →</a></div><div id="result" class="result" aria-live="polite"></div>`}
+      <div class="actions"><button class="btn btn-primary" id="check">Antworten prüfen</button><button class="btn btn-secondary" id="reset">Noch einmal</button><a class="btn btn-link" href="uebung.html?id=${ex.id === 13 ? 1 : ex.id + 1}">Nächste Übung →</a></div><div id="result" class="result" aria-live="polite"></div>
     </section>`;
 
-  if (ex.type !== "writing") {
-    document.getElementById("check").addEventListener("click", checkAnswers);
-    document.getElementById("reset").addEventListener("click", () => location.reload());
-  }
-  if (ex.type === "writing") setupWriting();
+  document.getElementById("check").addEventListener("click", checkAnswers);
+  document.getElementById("reset").addEventListener("click", () => location.reload());
+}
+
+function renderCaseHelp() {
+  return `<section class="case-help" aria-labelledby="case-help-title">
+    <h2 id="case-help-title">Hilfe: Die vier Fallfragen</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Fall</th><th>Fallfrage</th><th>Beispiel</th></tr></thead>
+      <tbody>
+        <tr><td>Nominativ</td><td>Wer oder was?</td><td>der Wolf</td></tr>
+        <tr><td>Akkusativ</td><td>Wen oder was?</td><td>den Wolf</td></tr>
+        <tr><td>Dativ</td><td>Wem?</td><td>dem Wolf</td></tr>
+        <tr><td>Genitiv</td><td>Wessen?</td><td>des Wolfes</td></tr>
+      </tbody>
+    </table></div>
+  </section>`;
 }
 
 function renderErrorText() {
@@ -217,39 +225,6 @@ function renderErrorText() {
   const answers = ["Die", "auffälliges", "die Giraffe", "ihrem", "langen", "dem langen", "der hohen Bäume", "Ihr", "Die kräftigen", "dem", "großen", "Eine"];
   const selects = choices.map((opts, i) => `<select aria-label="Fehlerstelle ${i + 1}" data-answer="${esc(answers[i])}">${optionsHtml(opts)}</select>`);
   return `<div class="question" data-question="0"><div class="error-box">${selects[0]} Giraffe ist ein ${selects[1]} Tier. Man erkennt ${selects[2]} besonders an ${selects[3]} ${selects[4]} Hals. Mit ${selects[5]} Hals erreicht sie die Blätter ${selects[6]}. ${selects[7]} Fell zeigt braune Flecken. ${selects[8]} Beine helfen ${selects[9]} ${selects[10]} Tier beim Laufen. ${selects[11]} Giraffe kann sehr schnell werden.</div><p class="feedback" aria-live="polite"></p></div>`;
-}
-
-function renderWriting() {
-  return `<div class="writing-plan">
-    <div class="plan-field"><label for="tier">Tierart, Lebensraum, Größe</label><input id="tier" type="text" placeholder="z. B. Wolf, Wald, mittelgroß"></div>
-    <div class="plan-field"><label for="koerper">Körperbau</label><input id="koerper" type="text" placeholder="Kopf, Körper, Beine, Schwanz"></div>
-    <div class="plan-field"><label for="fell">Fell oder Haut</label><input id="fell" type="text" placeholder="Farbe, Muster, Beschaffenheit"></div>
-    <div class="plan-field"><label for="merkmale">Besondere Merkmale</label><input id="merkmale" type="text" placeholder="Zähne, Ohren, Krallen, Bewegung"></div>
-  </div>
-  <label for="text"><strong>Meine Tierbeschreibung</strong></label>
-  <textarea id="text" placeholder="Schreibe hier deinen Text …"></textarea>
-  <div class="checklist"><strong>Meine Checkliste</strong>
-    <label><input type="checkbox"> Artikel und Nomen passen zusammen.</label>
-    <label><input type="checkbox"> Die Adjektivendungen stimmen.</label>
-    <label><input type="checkbox"> Die Pronomen sind eindeutig.</label>
-    <label><input type="checkbox"> Ich habe die Fälle geprüft.</label>
-    <label><input type="checkbox"> Ich schreibe sachlich vom Allgemeinen zum Besonderen.</label>
-  </div>
-  <div class="actions"><button class="btn btn-secondary" id="clear-writing">Eingaben löschen</button><a class="btn btn-link" href="index.html">Zur Übersicht</a></div>`;
-}
-
-function setupWriting() {
-  const fields = [...document.querySelectorAll(".writing-plan input, textarea")];
-  fields.forEach(field => {
-    const key = `tierbeschreibung-${field.id}`;
-    field.value = localStorage.getItem(key) || "";
-    field.addEventListener("input", () => localStorage.setItem(key, field.value));
-  });
-  document.getElementById("clear-writing").addEventListener("click", () => {
-    if (!confirm("Möchtest du alle Eingaben dieser Übung löschen?")) return;
-    fields.forEach(field => { field.value = ""; localStorage.removeItem(`tierbeschreibung-${field.id}`); });
-    document.querySelectorAll(".checklist input").forEach(box => box.checked = false);
-  });
 }
 
 function checkAnswers() {
