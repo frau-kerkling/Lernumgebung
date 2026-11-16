@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi habitación – Vokabeln und Artikel</title>
+<style>
+:root{--petrol:#145b63;--deep:#103d44;--orange:#e78a43;--pale:#f3f8f7;--ink:#23343a;--good:#18794e;--bad:#b23b3b}
+*{box-sizing:border-box}body{margin:0;background:#eef3f2;color:var(--ink);font:16px/1.5 Tahoma,Arial,sans-serif}
+header{background:var(--petrol);color:white;padding:28px 18px;text-align:center;border-bottom:6px solid var(--orange)}header h1{margin:0 0 4px;font-size:clamp(1.6rem,4vw,2.2rem)}header p{margin:0}
+main{max-width:920px;margin:22px auto;padding:0 14px 40px}.intro,.card{background:white;border-radius:14px;padding:20px;margin:16px 0;box-shadow:0 3px 12px #173f4414}.intro{border-left:6px solid var(--orange)}h2{color:var(--deep);font-size:1.35rem;margin:0 0 8px}h3{font-size:1.06rem;margin:16px 0 7px}.tag{display:inline-block;background:#e2f0ef;color:var(--deep);padding:3px 9px;border-radius:999px;font-size:.85rem;font-weight:bold;margin-bottom:8px}
+.row{display:grid;grid-template-columns:minmax(150px,1fr) minmax(150px,1fr);gap:10px;align-items:center;border-bottom:1px solid #e7eeee;padding:8px 0}.row:last-child{border:0}label{font-weight:600}.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}button{border:0;border-radius:9px;background:var(--petrol);color:white;padding:10px 16px;font:inherit;font-weight:bold;cursor:pointer}button:hover{background:var(--deep)}button.secondary{background:#e7eeee;color:var(--deep)}select{width:100%;padding:9px;border:1px solid #aebfbe;border-radius:8px;background:white;color:var(--ink);font:inherit}.feedback{font-weight:bold;margin-top:10px;min-height:1.5em}.good{color:var(--good)}.bad{color:var(--bad)}.score{position:sticky;top:0;background:#fff;border:1px solid #dce8e6;border-radius:10px;padding:9px 13px;text-align:right;font-weight:bold;z-index:2}.sentence{padding:10px 12px;background:var(--pale);border-radius:9px;margin:8px 0}.sentence select{display:inline-block;width:auto;min-width:94px;padding:5px 7px}.hint{font-size:.93rem;color:#52686b}.answer{font-weight:bold;color:var(--deep)}footer{text-align:center;color:#5a6c6e;font-size:.9rem;padding:15px}
+@media(max-width:600px){.row{grid-template-columns:1fr;gap:4px}.card,.intro{padding:16px}}
+</style>
+</head>
+<body>
+<header><h1>Mi habitación</h1><p>Vokabeln üben und die passenden Artikel wählen</p></header>
+<main>
+<div class="intro"><strong>So arbeitest du:</strong> Bearbeite die Aufgaben und klicke jeweils auf <em>Prüfen</em>. Bei den Artikeln hilft dir: <b>el</b> = männlich, <b>la</b> = weiblich, <b>los/las</b> = Mehrzahl. Vor einem männlichen oder weiblichen Nomen steht <b>un/una</b>.</div>
+<div class="score" id="score">Richtig beantwortet: 0</div>
+<section class="card" id="vocab"><span class="tag">1 · Wortschatz</span><h2>Ordne die spanischen Wörter zu</h2><p class="hint">Wähle zu jedem deutschen Wort die passende spanische Übersetzung.</p><div id="vocabRows"></div><div class="controls"><button onclick="checkGroup('vocab')">Prüfen</button><button class="secondary" onclick="resetGroup('vocab')">Zurücksetzen</button></div><div class="feedback" aria-live="polite"></div></section>
+<section class="card" id="definite"><span class="tag">2 · Bestimmte Artikel</span><h2>Ergänze el, la, los oder las</h2><p class="hint">Achte auf das Geschlecht und darauf, ob das Nomen im Singular oder Plural steht.</p><div id="defRows"></div><div class="controls"><button onclick="checkGroup('definite')">Prüfen</button><button class="secondary" onclick="resetGroup('definite')">Zurücksetzen</button></div><div class="feedback" aria-live="polite"></div></section>
+<section class="card" id="indefinite"><span class="tag">3 · Unbestimmte Artikel</span><h2>Ergänze un oder una</h2><p class="hint">In den Sätzen steht jeweils ein einzelnes, noch nicht näher bestimmtes Ding.</p><div id="indefRows"></div><div class="controls"><button onclick="checkGroup('indefinite')">Prüfen</button><button class="secondary" onclick="resetGroup('indefinite')">Zurücksetzen</button></div><div class="feedback" aria-live="polite"></div></section>
+<section class="card" id="mi"><span class="tag">4 · Im Satz verwenden</span><h2>Ergänze mi, mis, hay und den passenden Artikel</h2><p class="hint">Denk daran: <b>mi</b> steht vor einem Nomen im Singular, <b>mis</b> vor einem Nomen im Plural. Nach <b>hay</b> bedeutet <b>un/una</b> „ein/eine“.</p><div id="sentenceRows"></div><div class="controls"><button onclick="checkGroup('mi')">Prüfen</button><button class="secondary" onclick="resetGroup('mi')">Zurücksetzen</button></div><div class="feedback" aria-live="polite"></div></section>
+<div class="controls" style="justify-content:center"><button onclick="resetAll()">Alle Aufgaben neu starten</button></div>
+<footer>Viel Erfolg beim Üben · ¡Ánimo!</footer>
+</main>
+<script>
+const vocab=[
+['das Zimmer','la habitación'],['das Bett','la cama'],['der Schrank','el armario'],['das Poster','el póster'],['die Wand','la pared'],['das Fenster','la ventana'],['das Foto','la foto'],['der Spiegel','el espejo'],['die Tür','la puerta'],['die Lampe','la lámpara'],['der Teppich','la alfombra'],['der Sessel','el sillón'],['das Regal','la estantería'],['die Spielkonsole','la consola (de videojuegos)'],['der Lautsprecher','el altavoz'],['der Schreibtisch','el escritorio']
+];
+const definite=[['habitación','la'],['habitaciones (Mehrzahl)','las'],['cama','la'],['armario','el'],['pósters (Mehrzahl)','los'],['pared','la'],['ventana','la'],['foto','la'],['espejo','el'],['puerta','la'],['lámpara','la'],['alfombra','la'],['sillones (Mehrzahl)','los'],['estantería','la'],['consola','la'],['altavoces (Mehrzahl)','los'],['escritorio','el']];
+const indefinite=[['cama','una'],['armario','un'],['póster','un'],['pared','una'],['ventana','una'],['foto','una'],['espejo','un'],['puerta','una'],['lámpara','una'],['alfombra','una'],['sillón','un'],['estantería','una'],['consola','una'],['altavoz','un'],['escritorio','un']];
+const possessives=[['pósters (Mehrzahl)','mis'],['sillones (Mehrzahl)','mis'],['altavoces (Mehrzahl)','mis'],['habitación (Singular)','mi']];
+const sentences=[
+{parts:['En ',['mi','mis'],' habitación ',['hay','es'],' ',['una','un'],' cama.'],answers:['mi','hay','una']},
+{parts:['En ',['mi','mis'],' habitación ',['hay','es'],' ',['un','una'],' armario.'],answers:['mi','hay','un']},
+{parts:['En ',['mi','mis'],' habitación ',['hay','es'],' ',['un','una'],' póster.'],answers:['mi','hay','un']},
+{parts:['En ',['mi','mis'],' habitación ',['hay','es'],' ',['una','un'],' ventana.'],answers:['mi','hay','una']},
+{parts:['En ',['mi','mis'],' habitación ',['hay','es'],' ',['un','una'],' espejo.'],answers:['mi','hay','un']},
+{parts:['En ',['mi','mis'],' habitación ',['hay','es'],' ',['una','un'],' lámpara.'],answers:['mi','hay','una']},
+{parts:['En ',['mi','mis'],' habitación ',['hay','es'],' ',['un','una'],' escritorio.'],answers:['mi','hay','un']},
+{parts:['En ',['mi','mis'],' habitación ',['hay','es'],' ',['una','un'],' consola.'],answers:['mi','hay','una']}
+];
+const optionSets={articles:['el','la','los','las'],indef:['un','una'],mi:['mi','mis'],hay:['hay','es']};
+function pick(list){return [...list].sort(()=>Math.random()-.5)}
+function selectHTML(options,answer,group,index){return `<select data-group="${group}" data-i="${index}" data-answer="${answer}" aria-label="Antwort auswählen"><option value="">— auswählen —</option>${options.map(o=>`<option>${o}</option>`).join('')}</select>`}
+function render(){
+ let chosen=pick(vocab).slice(0,10);document.getElementById('vocabRows').innerHTML=chosen.map(([de,es],i)=>`<div class="row"><label>${de}</label>${selectHTML(pick(vocab.map(x=>x[1])).slice(0,5).concat(es).filter((x,j,a)=>a.indexOf(x)===j),es,'vocab',i)}</div>`).join('');
+ document.getElementById('defRows').innerHTML=pick(definite).map(([noun,ans],i)=>`<div class="row"><label><span class="answer">___</span> ${noun}</label>${selectHTML(optionSets.articles,ans,'definite',i)}</div>`).join('');
+ document.getElementById('indefRows').innerHTML=pick(indefinite).map(([noun,ans],i)=>`<div class="row"><label><span class="answer">___</span> ${noun}</label>${selectHTML(optionSets.indef,ans,'indefinite',i)}</div>`).join('');
+ document.getElementById('sentenceRows').innerHTML=sentences.map((s,i)=>`<div class="sentence">${s.parts.map(p=>Array.isArray(p)?selectHTML(optionSets[p===s.parts[1]?'mi':p===s.parts[3]?'hay':'indef'],s.answers[p===s.parts[1]?0:p===s.parts[3]?1:2],'mi',i+'-'+s.answers.indexOf(s.answers[p===s.parts[1]?0:p===s.parts[3]?1:2])):p).join('')}</div>`).join('')+`<h3>Possessivbegleiter: mi oder mis?</h3>`+possessives.map(([noun,ans],i)=>`<div class="row"><label>${noun}</label>${selectHTML(optionSets.mi,ans,'mi','p-'+i)}</div>`).join('');
+ // Give the three blanks in each sentence stable indices, regardless of text content.
+ document.querySelectorAll('#sentenceRows .sentence').forEach((line,i)=>{let sels=line.querySelectorAll('select');sels.forEach((sel,j)=>{sel.dataset.i=i+'-'+j;sel.dataset.answer=sentences[i].answers[j]})});
+}
+let tally=0;function updateScore(){document.getElementById('score').textContent=`Richtig beantwortet: ${tally}`}
+function checkGroup(id){const box=document.getElementById(id),sels=[...box.querySelectorAll('select')];let right=0,answered=0;sels.forEach(s=>{s.classList.remove('good','bad');if(!s.value)return;answered++;if(s.value===s.dataset.answer){s.classList.add('good');right++}else{s.classList.add('bad')}});box.querySelector('.feedback').innerHTML=answered===0?'Wähle zuerst deine Antworten aus.':right===sels.length?`Ausgezeichnet! ${right} von ${sels.length} richtig.`:`Du hast ${right} von ${sels.length} richtig. <span class="hint">Rot markierte Antworten kannst du noch ändern.</span>`;tally= document.querySelectorAll('select.good').length;updateScore()}
+function resetGroup(id){const box=document.getElementById(id);box.querySelectorAll('select').forEach(s=>{s.value='';s.classList.remove('good','bad')});box.querySelector('.feedback').textContent='';tally=document.querySelectorAll('select.good').length;updateScore()}
+function resetAll(){tally=0;render();document.querySelectorAll('.feedback').forEach(f=>f.textContent='');updateScore()}
+render();
+</script>
+</body></html>
