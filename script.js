@@ -214,6 +214,15 @@ function renderSpanishGrade() {
     <i>Zimmer öffnen →</i>
   </span>
 </a>
+                <a class="material-card" href="Mi_habitacion_Uebungen.html">
+                  <span class="material-art spanish-art">A–Z</span>
+                  <span class="material-copy">
+                    <small>Wortschatz · Grammatik</small>
+                    <strong>Mi habitación: Vokabeln und Artikel</strong>
+                    <p>Übe Zimmer-Vokabeln sowie bestimmte und unbestimmte Artikel, mi/mis und hay.</p>
+                    <i>Übungen öffnen →</i>
+                  </span>
+                </a>
       <button class="material-card" data-go="vokabeln">
         <span class="material-art spanish-art">¡Ho<br>la!</span>
         <span class="material-copy">
