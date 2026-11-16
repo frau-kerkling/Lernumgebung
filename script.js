@@ -205,7 +205,7 @@ function renderSpanishGrade() {
     </section>
     <section class="catalog-section">
       <div class="section-heading"><span>03</span><h2>Lernmaterialien</h2></div>
-<a class="material-card" href="Mi_habitacion.html">
+<a class="material-card" href="Mi_habitacion-2.html">
   <span class="material-art spanish-art">Mi<br>habitación</span>
   <span class="material-copy">
     <small>Wortschatz · Möbel und Ortsangaben</small>
